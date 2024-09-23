@@ -2,8 +2,8 @@ import { Hono } from 'hono'
 
 const app = new Hono<{ Bindings: CloudflareBindings }>()
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
+app.get('/hello', (c) => {
+  return c.text('Hello Ayush!')
 })
 
 export default app

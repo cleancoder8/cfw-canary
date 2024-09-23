@@ -7,3 +7,6 @@ workers_dev = true
 kv_namespaces = [
   { binding = "CANARY_NAMESPACE", id = "2db0fff107504a318082f8b070d140d5" }
 ]
+d1_databases = [
+  { binding = "DB", database_name = "canary_sql", database_id = "252e035b-5b18-414d-8083-c7b2d7e46dd7" }
+]

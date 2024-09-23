@@ -5,6 +5,10 @@ import {logger} from 'hono/logger'
 
 const app = new Hono<{ Bindings: CloudflareBindings }>()
 app.use(logger())
+app.get('/sql', async (c) => {
+    const {results} = await c.env.DB.prepare('SELECT * FROM canary_table').all();  // Run SQL query
+    return c.json(results);
+});
 app.get('/kv/:key', async (c) => {
     const key = c.req.param('key');
     const value = await c.env.CANARY_NAMESPACE.get(key); // Accessing KV
@@ -16,10 +20,8 @@ app.get('/kv/:key', async (c) => {
 });
 
 // Save a value to KV
-app.post('/kv/:key', async (c) => {
-    const key = c.req.param('key');
-    const value = await c.req.text(); // Assume value is sent in the request body as plain text
-
+app.post('/kv', async (c) => {
+    const {key, value} = await c.req.json();
     await c.env.CANARY_NAMESPACE.put(key, value); // Storing the value in KV
     return c.text(`Saved value "${value}" under key "${key}"`);
 });
@@ -32,7 +34,6 @@ app.delete('/kv/:key', async (c) => {
 });
 
 app.get('/hello', (c) => {
-
     return c.json(
         {message: "hi Ayush"}
     )

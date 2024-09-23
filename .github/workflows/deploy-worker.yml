@@ -20,6 +20,8 @@ jobs:
 
       - name: Install Wrangler
         run: npm install -g wrangler
+      - name: build
+        run: npm run build
 
       - name: Publish to Cloudflare Workers
         run: wrangler publish

@@ -1,5 +1,6 @@
 {
   "name": "cfw-canary",
+  
   "scripts": {
     "dev": "wrangler dev",
     "test": "vitest",
